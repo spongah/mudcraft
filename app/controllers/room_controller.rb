@@ -8,7 +8,7 @@ class RoomController < ApplicationController
 
 		def set_room
 			@room = Room.find(params[:id])
-			@room.exits = exit_string
+			@room.exits = exit_list
 		end
 
 		def room_params
@@ -37,20 +37,16 @@ class RoomController < ApplicationController
 
 	  def exit_list
 	  	exit_array = []
-	  	if @room.n > 0 then exit_array.push(view_context.link_to("north", room_path(@room.n))) end
-	  	if @room.ne > 0 then exit_array.push(view_context.link_to("northeast", room_path(@room.ne))) end
-	  	if @room.e > 0 then exit_array.push(view_context.link_to("east", room_path(@room.e))) end
-	  	if @room.se > 0 then exit_array.push(view_context.link_to("southeast", room_path(@room.se))) end
-	  	if @room.s > 0 then exit_array.push(view_context.link_to("south", room_path(@room.s))) end
-	  	if @room.sw > 0 then exit_array.push(view_context.link_to("southwest", room_path(@room.sw))) end
-	  	if @room.w > 0 then exit_array.push(view_context.link_to("west", room_path(@room.w))) end
-	  	if @room.nw > 0 then exit_array.push(view_context.link_to("northwest", room_path(@room.nw))) end
-	  	if @room.u > 0 then exit_array.push(view_context.link_to("up", room_path(@room.u))) end
-	  	if @room.d > 0 then exit_array.push(view_context.link_to("down", room_path(@room.d))) end
+	  	if @room.n > 0 then exit_array.push( { name: "north", :path => room_path(@room.n)} ) end
+	  	if @room.ne > 0 then exit_array.push( { name: "northeast", :path => room_path(@room.ne)} ) end
+	  	if @room.e > 0 then exit_array.push( { name: "east", :path => room_path(@room.e)} )  end
+	  	if @room.se > 0 then exit_array.push( { name: "southeast", :path => room_path(@room.se)} ) end
+	  	if @room.s > 0 then exit_array.push( { name: "south", :path => room_path(@room.s)} )  end
+	  	if @room.sw > 0 then exit_array.push( { name: "southwest", :path => room_path(@room.sw)} ) end
+	  	if @room.w > 0 then exit_array.push( { name: "west", :path => room_path(@room.w)} )  end
+	  	if @room.nw > 0 then exit_array.push( { name: "northwest", :path => room_path(@room.nw)} ) end
+	  	if @room.u > 0 then exit_array.push( { name: "up", :path => room_path(@room.u)} )  end
+	  	if @room.d > 0 then exit_array.push( { name: "down", :path => room_path(@room.d)} )  end
 	  	return exit_array 	
-	  end
-
-	  def exit_list_string
-	  	return exit_list.join(', ')
 	  end
 end
