@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   get 'rooms/:id' => 'room#show', as: :room
+  # get 'index' => 'main#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

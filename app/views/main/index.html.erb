@@ -1,17 +1,14 @@
-
 <div class="col-md-8 col-md-offset-2">
 	<div class="col-xs-12">
-		<div class="command">
-			<input type="text" placeholder="Enter command">
+		<div class="command" id="command">
+				<%= react_component('Command', id: 'commandBox') %>
 		</div>
   </div>
 	<div class="room">
-		<h2 class="rtitle">Town Center</h2>
-		<div class="rdescription">This is the center of the city... You can see a large meeting place in the middle where an arts festival is being conducted. Over to the west you see train tracks, and to the east you see mountains. </div>
-		<h5 class="exits">There are exits to the <a href="#">North</a>, and <a href="#">East</a>.</h4>
-		<div class="npcs"><a href="#">A Priest</a> is in this room.</div>
-		<div class="mobs"><a href="#">2 Dragons</a> are here!!</div>
-		<div class="players"><a href="#">[CRIMS0N]</a> is here with you.</div>
+			<%= react_component('Room', 
+				name: @room.name,
+				description: @room.description,
+				exits: @room.exits) %>
 	</div>
 	<div style="padding-top: 10px"></div>
 	<div class="newsfeed">
@@ -19,4 +16,3 @@
 		<div class="damage"><a href="#" class="mobs">The Dragon</a> attacked you for 1150 damage!</div>
 	</div>
 </div>
-

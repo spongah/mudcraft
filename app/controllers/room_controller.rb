@@ -2,13 +2,13 @@ class RoomController < ApplicationController
 	before_action :set_room, only: [:show]
 
 	def show
-		@exits = exit_string.html_safe
 	end
 
 	private
 
 		def set_room
 			@room = Room.find(params[:id])
+			@room.exits = exit_string
 		end
 
 		def room_params
