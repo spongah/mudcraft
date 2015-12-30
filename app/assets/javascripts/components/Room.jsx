@@ -1,4 +1,11 @@
 var Room = React.createClass ({
+	getInitialState: function () {
+		return {
+		name: "",
+		description: "",
+		exits: []
+		};
+	},
 
 	render: function () {
 		return (
@@ -13,6 +20,6 @@ var Room = React.createClass ({
 					<div className="mobs"><a href="#">2 Dragons</a> are here!!</div>
 					<div className="players"><a href="#">[CRIMS0N]</a> is here with you.</div>
 				</div>
-			);
+		);
 	}
 });
