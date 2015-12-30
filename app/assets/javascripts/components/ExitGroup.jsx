@@ -14,7 +14,7 @@ var ExitGroup = React.createClass ({
 						{this.props.exits.map(function (exit) {
 							exits += 1;
 							return (
-								<span>
+								<span key={exit.name}>
 									{(exits == exit_number) ?
 										<span> and <a href={exit.path}>{exit.name}</a>.</span> : 
 										<span> <a href={exit.path}>{exit.name}</a>,</span>
