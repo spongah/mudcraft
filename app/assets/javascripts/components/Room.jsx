@@ -49,6 +49,7 @@ var Room = React.createClass ({
       	});
       }
     }.bind(this));	
+    document.getElementById("commandBox").focus();
 	},
 
 	render: function () {
@@ -67,7 +68,7 @@ var Room = React.createClass ({
 						{ (this.props.exits.length == 0) ? <span>This room has no exits!</span> : 
 							<span><ExitGroup exits={this.state.exits || this.props.exits} onClick={boundClick}></ExitGroup></span>}
 					</h5>
-					<div className="npcs"><a href="http://www.google.com/">A Priest</a> is in this room.</div>
+					<div className="npcs"><a href="#">A Priest</a> is in this room.</div>
 					<div className="mobs"><a href="#">2 Dragons</a> are here!!</div>
 					<div className="players"><a href="#">[CRIMS0N]</a> is here with you.</div>
 				</div>

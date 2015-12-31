@@ -2,7 +2,9 @@
 <div class="col-md-8 col-md-offset-2">
 	<div class="col-xs-12">
 		<div class="command" id="command">
-				<%= react_component('Command', id: 'commandBox') %>
+				<%= react_component('Command',
+					room: @room.id
+				) %>
 		</div>
   </div>
 	<div class="room">
