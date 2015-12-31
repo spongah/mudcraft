@@ -7,9 +7,8 @@
   </div>
 	<div class="room">
 			<%= react_component('Room', 
-				name: @room.name,
-				description: @room.description,
-				exits: @room.exits) %>
+				exits: @room.exits,
+				initial_room_path: room_path(id: 1, format: :json)) %>
 	</div>
 	<div style="padding-top: 10px"></div>
 	<div class="newsfeed">

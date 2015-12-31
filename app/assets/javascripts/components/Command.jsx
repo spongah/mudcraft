@@ -1,7 +1,13 @@
 var Command = React.createClass ({
+	commandSubmit: function (e) {
+		alert(this.props.value);
+	},
+
 	render: function () {
 		return (
-			<input autoFocus type="text" placeholder="Enter command" />
+			<form onSubmit={this.commandSubmit}>
+				<input autoFocus type="text" className="submit_on_enter" placeholder="Enter command" />
+			</form>
 			);
 	}
 });

@@ -37,16 +37,16 @@ class RoomController < ApplicationController
 
 	  def exit_list
 	  	exit_array = []
-	  	if @room.n > 0 then exit_array.push( { name: "north", :path => room_path(@room.n)} ) end
-	  	if @room.ne > 0 then exit_array.push( { name: "northeast", :path => room_path(@room.ne)} ) end
-	  	if @room.e > 0 then exit_array.push( { name: "east", :path => room_path(@room.e)} )  end
-	  	if @room.se > 0 then exit_array.push( { name: "southeast", :path => room_path(@room.se)} ) end
-	  	if @room.s > 0 then exit_array.push( { name: "south", :path => room_path(@room.s)} )  end
-	  	if @room.sw > 0 then exit_array.push( { name: "southwest", :path => room_path(@room.sw)} ) end
-	  	if @room.w > 0 then exit_array.push( { name: "west", :path => room_path(@room.w)} )  end
-	  	if @room.nw > 0 then exit_array.push( { name: "northwest", :path => room_path(@room.nw)} ) end
-	  	if @room.u > 0 then exit_array.push( { name: "up", :path => room_path(@room.u)} )  end
-	  	if @room.d > 0 then exit_array.push( { name: "down", :path => room_path(@room.d)} )  end
+	  	if @room.n > 0 then exit_array.push( { name: "north", :path => room_path(@room.n, format: :json)} ) end
+	  	if @room.ne > 0 then exit_array.push( { name: "northeast", :path => room_path(@room.ne, format: :json)} ) end
+	  	if @room.e > 0 then exit_array.push( { name: "east", :path => room_path(@room.e, format: :json)} )  end
+	  	if @room.se > 0 then exit_array.push( { name: "southeast", :path => room_path(@room.se, format: :json)} ) end
+	  	if @room.s > 0 then exit_array.push( { name: "south", :path => room_path(@room.s, format: :json)} )  end
+	  	if @room.sw > 0 then exit_array.push( { name: "southwest", :path => room_path(@room.sw, format: :json)} ) end
+	  	if @room.w > 0 then exit_array.push( { name: "west", :path => room_path(@room.w, format: :json)} )  end
+	  	if @room.nw > 0 then exit_array.push( { name: "northwest", :path => room_path(@room.nw, format: :json)} ) end
+	  	if @room.u > 0 then exit_array.push( { name: "up", :path => room_path(@room.u, format: :json)} )  end
+	  	if @room.d > 0 then exit_array.push( { name: "down", :path => room_path(@room.d, format: :json)} )  end
 	  	return exit_array 	
 	  end
 end
