@@ -64,7 +64,7 @@ var Room = React.createClass ({
 				<div>
 					<h2 className="rtitle">{this.state.name}</h2>
 					<div className="rdescription">{this.state.description}</div>
-					<h5>
+					<h5 className="exits">
 						{ (this.props.exits.length == 0) ? <span>This room has no exits!</span> : 
 							<span><ExitGroup exits={this.state.exits || this.props.exits} onClick={boundClick}></ExitGroup></span>}
 					</h5>
