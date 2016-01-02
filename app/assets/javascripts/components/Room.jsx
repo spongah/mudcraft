@@ -1,4 +1,5 @@
 var Room = React.createClass ({
+
 	getInitialState: function () {
     $.get(this.props.initial_room_path, function(result) {
     	var exit_array = this.makeExitArray(result);
@@ -37,7 +38,7 @@ var Room = React.createClass ({
 		return ( exit_array );
 	},
 
-	handleClick: function (e, exit_path) {
+	handleClick: function (e) {
 		e.preventDefault();
     $.get(e.target.href, function(result) {
     	var exit_array = this.makeExitArray(result);
@@ -53,7 +54,6 @@ var Room = React.createClass ({
 	},
 
 	render: function () {
-		var boundClick = this.handleClick
 //		console.log(this.state.exits);
 //		if (this.state.exits) {
 //		{this.state.exits.map(function (exit, i) {
@@ -66,7 +66,7 @@ var Room = React.createClass ({
 					<div className="rdescription">{this.state.description}</div>
 					<h5 className="exits">
 						{ (this.props.exits.length == 0) ? <span>This room has no exits!</span> : 
-							<span><ExitGroup exits={this.state.exits || this.props.exits} onClick={boundClick}></ExitGroup></span>}
+							<span><ExitGroup exits={this.state.exits || this.props.exits} onClick={this.handleClick}></ExitGroup></span>}
 					</h5>
 					<div className="npcs"><a href="#">A Priest</a> is in this room.</div>
 					<div className="mobs"><a href="#">2 Dragons</a> are here!!</div>
