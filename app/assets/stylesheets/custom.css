@@ -78,6 +78,13 @@ input[type="text"]:focus {
   padding-top: 20px;
 }
 
+@media (max-width: 500px) {
+  .command {
+    display: none;
+  }
+
+}
+
 
 @import url(http://fonts.googleapis.com/css?family=Roboto);
 
