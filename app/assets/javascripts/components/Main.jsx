@@ -1,14 +1,15 @@
-var exit_array = [];
+var newsArray = [];
 var Main = React.createClass ({
 	getInitialState: function () {
     $.get(this.props.initial_room_path, function(result) {
-    	exit_array = this.makeExitArray(result);
+    	var exit_array = this.makeExitArray(result);
       if (this.isMounted()) {
       	this.setState({
       		room_id: result.id,
       		room_name: result.name,
       		room_description: result.description,
-      		room_exits: exit_array
+      		room_exits: exit_array,
+      		news_list: newsArray
       	});
       }
     }.bind(this));	
@@ -16,34 +17,24 @@ var Main = React.createClass ({
 			room_id: 1,
 			room_name: 'Limbo',
 			room_description: 'Whoa, no state was loaded',
-			room_exits: [{name: 'up', path: 'fake/1.json'}, {name: 'down', path: 'fake/2.json'}]
+			room_exits: [{name: 'up', path: 'fake/1.json'}, {name: 'down', path: 'fake/2.json'}],
+			news_list: [	{type: 'misc', msg: 'fake news1'}, 
+									{type: 'damage', msg: 'fake news2'}
+								]
 		};
-	},
-
-	setRoom: function(room_path) {
-    $.get(room_path, function(result) {
-    	exit_array = this.makeExitArray(result);
-      if (this.isMounted()) {
-      	this.setState({
-      		room_id: result.id,
-      		room_name: result.name,
-      		room_description: result.description,
-      		room_exits: exit_array
-      	});
-      }
-    }.bind(this));	
 	},
 
 	handleClick: function (e) {
 		e.preventDefault();
     $.get(e.target.href, function(result) {
-    	exit_array = this.makeExitArray(result);
+    	var exit_array = this.makeExitArray(result);
       if (this.isMounted()) {
       	this.setState({
       		room_id: result.id,
       		room_name: result.name,
       		room_description: result.description,
-      		room_exits: exit_array
+      		room_exits: exit_array,
+      		news_list: newsArray
       	});
       }
     }.bind(this));	
@@ -54,7 +45,6 @@ var Main = React.createClass ({
 		var room_exits = this.state.room_exits;
 		var command = document.getElementById("commandBox").value;
 		var exit_exists = false;
-		var setRoom = this.setRoom;
 		e.preventDefault();
 		if ((command == "n") || (command == "north") || (command == "ne") || (command == "northeast") || 
 			(command == "e") || (command == "east") || (command == "se") || (command == "southeast") || 
@@ -66,7 +56,6 @@ var Main = React.createClass ({
 					if (exit.name == "north") {
 						exit_exists = true;
 						document.getElementById("north").click();
-						setRoom(exit.path);
 					}
 				});
 			};
@@ -143,11 +132,25 @@ var Main = React.createClass ({
 				});
 			};
 			if (exit_exists == false) {
-				alert('There is no exit in that direction!')
+					newsArray = this.state.news_list;
+					newsArray.unshift({type: 'misc', msg: 'There is no exit in that direction!'});
+				this.setState({
+					news_list: newsArray
+				});
 			}
-		}
+		} else
 		if (command == "wtf") {
-			alert('right! what the fuck!');
+					newsArray = this.state.news_list;
+					newsArray.unshift({type: 'misc', msg: 'Right! What the fuck??'});
+				this.setState({
+					news_list: newsArray
+				});
+		} else {
+			 	newsArray = this.state.news_list;
+				newsArray.unshift({type: 'misc', msg: 'That is not a valid command!'});
+				this.setState({
+					news_list: newsArray
+				});			
 		}
 		document.getElementById("commandBox").value = "";
 	},
@@ -176,10 +179,16 @@ var Main = React.createClass ({
 					</div>
 			  </div>
 				<div className="room">
-						<Room room_id={this.state.room_id} room_name={this.state.room_name} room_description={this.state.room_description} exits={this.state.room_exits} onClick={this.handleClick}></Room>
+						<Room 
+							room_id={this.state.room_id} 
+							room_name={this.state.room_name} 
+							room_description={this.state.room_description} 
+							exits={this.state.room_exits} 
+							onClick={this.handleClick}>
+						</Room>
 				</div>
 				<div className="newsfeed">
-					<Newsfeed />
+					<Newsfeed news={this.state.news_list}/>
 				</div>
 			</div>
 		);

@@ -1,12 +1,6 @@
 var Room = React.createClass ({
 
 	render: function () {
-//		console.log(this.props);
-//		if (this.state.exits) {
-//		{this.state.exits.map(function (exit, i) {
-//			console.log(exit)
-//		})}}
-
 		return (
 				<div>
 					<h2 className="rtitle">{this.props.room_name}</h2>

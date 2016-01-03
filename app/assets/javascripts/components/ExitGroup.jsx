@@ -7,7 +7,8 @@ var ExitGroup = React.createClass ({
 			<span>
 				{(this.props.exits.length == 1) ? 
 					<span>
-						There is an exit to the <a id={this.props.exits[0].name} href={this.props.exits[0].path} onClick={exitClick}>{this.props.exits[0].name}</a>.
+						There is an exit to the <a id={this.props.exits[0].name} href={this.props.exits[0].path} 
+							onClick={exitClick}>{this.props.exits[0].name}</a>.
 					</span> :
 					<span>
 						There are exits to the 
