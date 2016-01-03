@@ -24,6 +24,8 @@ input[type="text"]:focus {
 	padding: 20px 20px 20px 20px;
 	border-radius: 15px;
   border: 2px solid #c9c9c9;	
+  height: 400px;
+  position: relative;
 }
 
 .command {
@@ -48,14 +50,30 @@ input[type="text"]:focus {
 	color: blue;
 }
 
+.others {
+  position: absolute;
+  bottom: 0;
+  padding-bottom: 15px;
+}
+
+
 .newsfeed {
 	padding-top: 10px;
 	padding: 20px 20px 20px 20px;
 	border-radius: 15px;
   border: 2px solid #c9c9c9;
+  height: 260px;
 
 }
 
 .damage {
 	color: red;
+}
+
+.movement {
+  color: green;
+}
+
+.space {
+  padding-top: 10px;
 }

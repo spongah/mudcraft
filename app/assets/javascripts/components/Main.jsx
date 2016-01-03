@@ -24,6 +24,16 @@ var Main = React.createClass ({
 		};
 	},
 
+	componentDidMount: function() {
+	    var elem = ReactDOM.findDOMNode(this)
+	    elem.style.opacity = 0;
+	    window.requestAnimationFrame(function() {
+	        elem.style.transition = "opacity 2000ms";
+	        elem.style.opacity = 1;
+	    });
+	},
+
+
 	handleClick: function (e) {
 		e.preventDefault();
     $.get(e.target.href, function(result) {
@@ -43,9 +53,10 @@ var Main = React.createClass ({
 
 	commandSubmit: function (e) {
 		var room_exits = this.state.room_exits;
-		var command = document.getElementById("commandBox").value;
+		var command = (document.getElementById("commandBox").value).toLowerCase();
 		var exit_exists = false;
 		e.preventDefault();
+		newsArray = this.state.news_list.slice(0, 10);
 		if ((command == "n") || (command == "north") || (command == "ne") || (command == "northeast") || 
 			(command == "e") || (command == "east") || (command == "se") || (command == "southeast") || 
 			(command == "s") || (command == "south") || (command == "sw") || (command == "southwest") || 
@@ -55,6 +66,7 @@ var Main = React.createClass ({
 				room_exits.map(function (exit, i) {
 					if (exit.name == "north") {
 						exit_exists = true;
+						newsArray.unshift({type: 'movement', msg: 'You exit the room heading north'});
 						document.getElementById("north").click();
 					}
 				});
@@ -63,6 +75,7 @@ var Main = React.createClass ({
 				room_exits.map(function (exit, i) {
 					if (exit.name == "northeast") {
 						exit_exists = true;
+						newsArray.unshift({type: 'movement', msg: 'You exit the room heading northeast'});
 						document.getElementById("northeast").click();
 					}
 				});
@@ -71,6 +84,7 @@ var Main = React.createClass ({
 				room_exits.map(function (exit, i) {
 					if (exit.name == "east") {
 						exit_exists = true;
+						newsArray.unshift({type: 'movement', msg: 'You exit the room heading east'});
 						document.getElementById("east").click();
 					}
 				});
@@ -79,6 +93,7 @@ var Main = React.createClass ({
 				room_exits.map(function (exit, i) {
 					if (exit.name == "southeast") {
 						exit_exists = true;
+						newsArray.unshift({type: 'movement', msg: 'You exit the room heading southeast'});
 						document.getElementById("southeast").click();
 					}
 				});
@@ -87,6 +102,7 @@ var Main = React.createClass ({
 				room_exits.map(function (exit, i) {
 					if (exit.name == "south") {
 						exit_exists = true;
+						newsArray.unshift({type: 'movement', msg: 'You exit the room heading south'});
 						document.getElementById("south").click();
 					}
 				});
@@ -95,6 +111,7 @@ var Main = React.createClass ({
 				room_exits.map(function (exit, i) {
 					if (exit.name == "southwest") {
 						exit_exists = true;
+						newsArray.unshift({type: 'movement', msg: 'You exit the room heading southwest'});
 						document.getElementById("southwest").click();
 					}
 				});
@@ -103,6 +120,7 @@ var Main = React.createClass ({
 				room_exits.map(function (exit, i) {
 					if (exit.name == "west") {
 						exit_exists = true;
+						newsArray.unshift({type: 'movement', msg: 'You exit the room heading west'});
 						document.getElementById("west").click();
 					}
 				});
@@ -111,6 +129,7 @@ var Main = React.createClass ({
 				room_exits.map(function (exit, i) {
 					if (exit.name == "northwest") {
 						exit_exists = true;
+						newsArray.unshift({type: 'movement', msg: 'You exit the room heading northwest'});
 						document.getElementById("northwest").click();
 					}
 				});
@@ -119,6 +138,7 @@ var Main = React.createClass ({
 				room_exits.map(function (exit, i) {
 					if (exit.name == "up") {
 						exit_exists = true;
+						newsArray.unshift({type: 'movement', msg: 'You climb up!'});
 						document.getElementById("up").click();
 					}
 				});
@@ -127,31 +147,23 @@ var Main = React.createClass ({
 				room_exits.map(function (exit, i) {
 					if (exit.name == "down") {
 						exit_exists = true;
+						newsArray.unshift({type: 'movement', msg: 'You climb down!'});
 						document.getElementById("down	").click();
 					}
 				});
 			};
 			if (exit_exists == false) {
-					newsArray = this.state.news_list;
 					newsArray.unshift({type: 'misc', msg: 'There is no exit in that direction!'});
-				this.setState({
-					news_list: newsArray
-				});
 			}
 		} else
 		if (command == "wtf") {
-					newsArray = this.state.news_list;
 					newsArray.unshift({type: 'misc', msg: 'Right! What the fuck??'});
-				this.setState({
-					news_list: newsArray
-				});
 		} else {
-			 	newsArray = this.state.news_list;
-				newsArray.unshift({type: 'misc', msg: 'That is not a valid command!'});
-				this.setState({
-					news_list: newsArray
-				});			
+				newsArray.unshift({type: 'misc', msg: '--' + command + ' is not a valid command!'});
 		}
+		this.setState({
+			news_list: newsArray
+		});			
 		document.getElementById("commandBox").value = "";
 	},
 
@@ -187,6 +199,7 @@ var Main = React.createClass ({
 							onClick={this.handleClick}>
 						</Room>
 				</div>
+				<div className="space"></div>
 				<div className="newsfeed">
 					<Newsfeed news={this.state.news_list}/>
 				</div>
