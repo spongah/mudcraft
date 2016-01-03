@@ -36,7 +36,8 @@ var Main = React.createClass ({
 
 	handleClick: function (e) {
 		e.preventDefault();
-		console.log(e.target.href);
+		var timestamp = this.timeString();
+    newsArray.unshift({type: 'movement', msg: timestamp + 'You exit the room heading ' + e.target.id + '.'});
     $.get(e.target.href, function(result) {
     	var exit_array = this.makeExitArray(result);
       if (this.isMounted()) {
