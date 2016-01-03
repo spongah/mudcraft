@@ -206,7 +206,7 @@ var Main = React.createClass ({
 
 	render: function () {
 		return (
-			<div class="col-md-8 col-md-offset-2">
+			<div className="col-md-8 col-md-offset-2">
 				<div>
 					<div className="col-xs-12">
 						<div className="command" id="command">
