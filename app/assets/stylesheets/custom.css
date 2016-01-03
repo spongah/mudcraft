@@ -78,12 +78,18 @@ input[type="text"]:focus {
   padding-top: 20px;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 768px) {
   .command {
     display: none;
   }
 
+  .navbar-nav {
+    padding-right: 25px;
+  }
+
 }
+
+
 
 
 @import url(http://fonts.googleapis.com/css?family=Roboto);
