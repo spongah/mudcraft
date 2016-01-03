@@ -36,6 +36,7 @@ var Main = React.createClass ({
 
 	handleClick: function (e) {
 		e.preventDefault();
+		console.log(e.target.href);
     $.get(e.target.href, function(result) {
     	var exit_array = this.makeExitArray(result);
       if (this.isMounted()) {
@@ -199,26 +200,32 @@ var Main = React.createClass ({
 		return ( exits );
 	},
 
+	commandFocus: function() {
+		document.getElementById("commandBox").focus();
+	},
+
 	render: function () {
 		return (
-			<div>
-				<div className="col-xs-12">
-					<div className="command" id="command">
-							<Command onSubmit={this.commandSubmit} />
+			<div class="col-md-8 col-md-offset-2">
+				<div>
+					<div className="col-xs-12">
+						<div className="command" id="command">
+								<Command onSubmit={this.commandSubmit} />
+						</div>
+				  </div>
+					<div className="room">
+							<Room 
+								room_id={this.state.room_id} 
+								room_name={this.state.room_name} 
+								room_description={this.state.room_description} 
+								exits={this.state.room_exits} 
+								onClick={this.handleClick}>
+							</Room>
 					</div>
-			  </div>
-				<div className="room">
-						<Room 
-							room_id={this.state.room_id} 
-							room_name={this.state.room_name} 
-							room_description={this.state.room_description} 
-							exits={this.state.room_exits} 
-							onClick={this.handleClick}>
-						</Room>
-				</div>
-				<div className="space"></div>
-				<div className="newsfeed">
-					<Newsfeed news={this.state.news_list}/>
+					<div className="space"></div>
+					<div className="newsfeed">
+						<Newsfeed news={this.state.news_list}/>
+					</div>
 				</div>
 			</div>
 		);
