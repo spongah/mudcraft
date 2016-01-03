@@ -37,7 +37,10 @@ var Main = React.createClass ({
 	handleClick: function (e) {
 		e.preventDefault();
 		var timestamp = this.timeString();
-    newsArray.unshift({type: 'movement', msg: timestamp + 'You exit the room heading ' + e.target.id + '.'});
+		if ((e.target.id == "north") ||  (e.target.id == "northeast") || (e.target.id == "east") ||  (e.target.id == "southeast") || 
+			(e.target.id == "south") ||  (e.target.id == "southwest") || (e.target.id == "west") ||  (e.target.id == "northwest")) {
+				newsArray.unshift({type: 'movement', msg: timestamp + 'You exit the room heading ' + e.target.id + '.'});
+ 			}
     $.get(e.target.href, function(result) {
     	var exit_array = this.makeExitArray(result);
       if (this.isMounted()) {
@@ -83,7 +86,6 @@ var Main = React.createClass ({
 				room_exits.map(function (exit, i) {
 					if (exit.name == "north") {
 						exit_exists = true;
-						newsArray.unshift({type: 'movement', msg: timestamp + 'You exit the room heading north.'});
 						document.getElementById("north").click();
 					}
 				});
@@ -92,7 +94,6 @@ var Main = React.createClass ({
 				room_exits.map(function (exit, i) {
 					if (exit.name == "northeast") {
 						exit_exists = true;
-						newsArray.unshift({type: 'movement', msg: timestamp + 'You exit the room heading northeast.'});
 						document.getElementById("northeast").click();
 					}
 				});
@@ -101,7 +102,6 @@ var Main = React.createClass ({
 				room_exits.map(function (exit, i) {
 					if (exit.name == "east") {
 						exit_exists = true;
-						newsArray.unshift({type: 'movement', msg: timestamp + 'You exit the room heading east.'});
 						document.getElementById("east").click();
 					}
 				});
@@ -110,7 +110,6 @@ var Main = React.createClass ({
 				room_exits.map(function (exit, i) {
 					if (exit.name == "southeast") {
 						exit_exists = true;
-						newsArray.unshift({type: 'movement', msg: timestamp + 'You exit the room heading southeast.'});
 						document.getElementById("southeast").click();
 					}
 				});
@@ -119,7 +118,6 @@ var Main = React.createClass ({
 				room_exits.map(function (exit, i) {
 					if (exit.name == "south") {
 						exit_exists = true;
-						newsArray.unshift({type: 'movement', msg: timestamp + 'You exit the room heading south.'});
 						document.getElementById("south").click();
 					}
 				});
@@ -128,7 +126,6 @@ var Main = React.createClass ({
 				room_exits.map(function (exit, i) {
 					if (exit.name == "southwest") {
 						exit_exists = true;
-						newsArray.unshift({type: 'movement', msg: timestamp + 'You exit the room heading southwest.'});
 						document.getElementById("southwest").click();
 					}
 				});
@@ -137,7 +134,6 @@ var Main = React.createClass ({
 				room_exits.map(function (exit, i) {
 					if (exit.name == "west") {
 						exit_exists = true;
-						newsArray.unshift({type: 'movement', msg: timestamp + 'You exit the room heading west.'});
 						document.getElementById("west").click();
 					}
 				});
@@ -146,7 +142,6 @@ var Main = React.createClass ({
 				room_exits.map(function (exit, i) {
 					if (exit.name == "northwest") {
 						exit_exists = true;
-						newsArray.unshift({type: 'movement', msg: timestamp + 'You exit the room heading northwest.'});
 						document.getElementById("northwest").click();
 					}
 				});
@@ -231,4 +226,54 @@ var Main = React.createClass ({
 			</div>
 		);
 	}
+});
+
+
+
+var SetIntervalMixin = {
+  componentWillMount: function() {
+    this.intervals = [];
+  },
+  setInterval: function() {
+    this.intervals.push(setInterval.apply(null, arguments));
+  },
+  componentWillUnmount: function() {
+    this.intervals.forEach(clearInterval);
+  }
+};
+
+
+var TickTock = React.createClass({
+  mixins: [SetIntervalMixin], // Use the mixin
+  getInitialState: function() {
+    return {clocktime: ''};
+  },
+  componentDidMount: function() {
+    this.setInterval(this.tick, 100); // Call a method on the mixin
+  },
+  tick: function() {
+    this.setState({clocktime: this.timeString()});
+  },
+	timeString: function () {
+		var d = new Date();
+		var timestamp = "";
+		if (d.getHours() > 12) {
+			timestamp += (d.getHours() - 12).toString();
+		} else { timestamp += d.getHours().toString() }
+		timestamp += ":";
+		timestamp += d.getMinutes().toString();
+		timestamp += ":";
+		timestamp += d.getSeconds().toString();
+		if (d.getHours() > 12) { 
+			timestamp += "pm"
+		} else { timestamp += "am" };
+		return ( timestamp );
+	},
+  render: function() {
+    return (
+      <span>
+        {this.state.clocktime}
+      </span>
+    );
+  }
 });

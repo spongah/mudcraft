@@ -2,7 +2,7 @@ var Room = React.createClass ({
 	render: function () {
 		return (
 				<div>
-					<h2 className="rtitle">{this.props.room_name}</h2>
+					<h2 className="rtitle">{this.props.room_name} - <TickTock /></h2>
 					<div className="rdescription">{this.props.room_description}</div>
 					<h5 className="exits">
 						{ (this.props.exits.length == 0) ? <span>This room has no exits!</span> : 
