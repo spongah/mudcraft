@@ -24,7 +24,7 @@ input[type="text"]:focus {
 	padding: 20px 20px 20px 20px;
 	border-radius: 15px;
   border: 2px solid #c9c9c9;	
-  height: 400px;
+  height: 375px;
   position: relative;
 }
 
@@ -75,5 +75,5 @@ input[type="text"]:focus {
 }
 
 .space {
-  padding-top: 10px;
+  padding-top: 20px;
 }
