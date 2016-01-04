@@ -99,6 +99,9 @@ var Main = React.createClass ({
 //				this.loadRoom(room_path);
 //				moveMe('down', room_exits);
 			}
+			else if (command == "dig up") {
+				updateRoom();
+			}
 
 
 

@@ -69,22 +69,26 @@ function convertShorthandMovements(command) {
 	return ( command )
 };
 
+function updateRoom(room, data) {
+	var formData = { room: { name: "Updated Room"}}
+	console.log(formData)
+  $.ajax({
+    data: formData,
+    url: "/rooms/27.json",
+    type: "PATCH",
+    dataType: "json"
+  });
+
+};
+
 function generateNewRoom() {
-		var formData = 
-			{
- 				"room":
-  			{
-   				"name": "Test Room",
-   				"description": "Super sick!",
-   				"u": "1"
-  			}
-			}
-		console.log(formData)
-    $.ajax({
-      data: formData,
-      url: "/rooms.json",
-      type: "POST",
-      dataType: "json"
-    });
+	var formData = { room: { name: "New Test Room", description: "Test description... slkdfjsdlkfsdljf", u: 1}}
+	console.log(formData)
+  $.ajax({
+    data: formData,
+    url: "/rooms.json",
+    type: "POST",
+    dataType: "json"
+  });
 };
 
