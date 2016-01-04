@@ -1,6 +1,10 @@
 class RoomController < ApplicationController
 	before_action :set_room, only: [:show, :update, :destroy]
 
+	def index
+		@room = Room.last
+	end
+
 	def show
 	end
 
@@ -8,7 +12,7 @@ class RoomController < ApplicationController
     @room = Room.new(room_params)
 	    respond_to do |format|
 	      if @room.save
-	        format.json { render :show, status: :created, location: @room }
+	        format.json { redirect_to @room }
 	      else
 	        format.json { render json: @room.errors, status: :unprocessable_entity }
 	      end

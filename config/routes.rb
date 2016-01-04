@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get 'index' => 'main#index'
   post 'rooms' => 'room#create'
   patch 'rooms/:id' => 'room#update'
+  get 'lastroom' => 'room#index'
+
  # delete 'rooms' => 'room#destroy'
 
   # The priority is based upon order of creation: first created -> highest priority.

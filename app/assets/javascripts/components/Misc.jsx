@@ -17,7 +17,9 @@ function timeStamp() {
 function timeString(ampm) {
 		var d = new Date();
 		var timestamp = "";
-		if (d.getHours() > 12) {
+		if (d.getHours() == 0) {
+			timestamp += "12";
+		} else if (d.getHours() > 12) {
 			timestamp += (d.getHours() - 12).toString();
 		} else { timestamp += d.getHours().toString() }
 		timestamp += ":";
@@ -67,28 +69,5 @@ function convertShorthandMovements(command) {
 	if ((command == "u") || (command == "up")) { return ( 'up' ) };
 	if ((command == "d") || (command == "down")) { return ( 'down' ) };
 	return ( command )
-};
-
-function updateRoom(room, data) {
-	var formData = { room: { name: "Updated Room"}}
-	console.log(formData)
-  $.ajax({
-    data: formData,
-    url: "/rooms/27.json",
-    type: "PATCH",
-    dataType: "json"
-  });
-
-};
-
-function generateNewRoom() {
-	var formData = { room: { name: "New Test Room", description: "Test description... slkdfjsdlkfsdljf", u: 1}}
-	console.log(formData)
-  $.ajax({
-    data: formData,
-    url: "/rooms.json",
-    type: "POST",
-    dataType: "json"
-  });
 };
 

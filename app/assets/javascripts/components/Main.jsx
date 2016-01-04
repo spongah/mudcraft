@@ -75,7 +75,7 @@ var Main = React.createClass ({
 		var commandEntered = (document.getElementById("commandBox").value).toLowerCase().trim();
 		var exit_exists = false;
 		var moveMe = this.moveDirection;
-		var room_id = this.room_id;
+		var room_id = this.state.room_id;
 		var room_path = '/rooms/' + room_id + '.json'
 		e.preventDefault();
 		command = convertShorthandMovements(commandEntered);
@@ -95,13 +95,20 @@ var Main = React.createClass ({
 // PUT NEW COMMANDS HERE!
 
 			else if (command == "dig down") {
-				generateNewRoom({direction: "down"});
-//				this.loadRoom(room_path);
-//				moveMe('down', room_exits);
+				var down_already_exists = false;
+				room_exits.map(function (exit) {
+					if (exit.name == "down") { down_already_exists = true; newsArray.unshift({type: 'misc', msg: timeStamp() + 'There is already a hole here!'}); }
+				});
+				if (!down_already_exists) {
+					generateNewRoom({direction: "down", room: room_id});
+					this.loadRoom(room_path);
+				  $.get("/lastroom.json", function(result) {
+				    this.loadRoom("/rooms/" + result.id + ".json");
+				  }.bind(this)); 
+				  newsArray.unshift({type: 'movement', msg: timeStamp() + 'You dig down into the earth!'});
+				}
 			}
-			else if (command == "dig up") {
-				updateRoom();
-			}
+
 
 
 
