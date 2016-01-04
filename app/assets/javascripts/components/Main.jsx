@@ -135,7 +135,6 @@ var Main = React.createClass ({
 
 
 
-
 // END NEW COMMANDS HERE!
 
 			else {

@@ -4,43 +4,6 @@ var roomDescriptionArray =  [ ['This is a very ', 'You are in a '],
                               [' There is a wierd smell, and you feel a strange presence.',
                                'The air is fresh, but there is still kind of a wierd vibe in here.']
                             ];
-var roomid = 0;
-
-function updateRoom(id, room) {
-	var formData = { room }
-	var room_path = "/rooms/" + id + ".json"
-  $.ajax({
-    data: formData,
-    url: room_path,
-    type: "PATCH",
-    dataType: "json"
-  });
-};
-
-function postNewRoom(room) {
-	var formData = { room }
-  $.ajax({
-    data: formData,
-    url: "/rooms.json",
-    type: "POST",
-    dataType: "json"
-  });
-};
-
-function updateLastRoom(options) {
-  $.get("/lastroom.json", function(result) {
-    if (options["direction"] == "north") { updateRoom(options["room_origin"], { n: result.id }); }
-    if (options["direction"] == "northeast") { updateRoom(options["room_origin"], { ne: result.id }); }
-    if (options["direction"] == "east") { updateRoom(options["room_origin"], { e: result.id }); }
-    if (options["direction"] == "southeast") { updateRoom(options["room_origin"], { se: result.id }); }
-    if (options["direction"] == "south") { updateRoom(options["room_origin"], { s: result.id }); }
-    if (options["direction"] == "southwest") { updateRoom(options["room_origin"], { sw: result.id }); }
-    if (options["direction"] == "west") { updateRoom(options["room_origin"], { w: result.id }); }
-    if (options["direction"] == "northwest") { updateRoom(options["room_origin"], { nw: result.id }); }
-    if (options["direction"] == "up") { updateRoom(options["room_origin"], { u: result.id }); }
-    if (options["direction"] == "down") { updateRoom(options["room_origin"], { d: result.id }); }
-  }.bind(this)); 
-};
 
 function addNewRoom(options) {
   var room_origin = options["room_origin"];
@@ -54,7 +17,6 @@ function addNewRoom(options) {
     success: function() {
       $.get("/lastroom.json", function(result) {
         var newFormData;
-        console.log(result.id);
         if (options["direction"] == "north") { newFormData = { room: { n: result.id } } }
         if (options["direction"] == "northeast") { newFormData = { room: { ne: result.id } } }
         if (options["direction"] == "east") { newFormData = { room: { e: result.id } } }
@@ -69,14 +31,12 @@ function addNewRoom(options) {
           data: newFormData,
           url: room_path,
           type: "PATCH",
-          dataType: "json",
-          success: function () { alert('success!')}
+          dataType: "json"
         });
       }.bind(this)); 
     }
   });
 };
-
 
 function generateNewRoom(options) {
 	var direction = options["direction"];
