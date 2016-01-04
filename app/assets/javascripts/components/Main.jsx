@@ -75,6 +75,8 @@ var Main = React.createClass ({
 		var commandEntered = (document.getElementById("commandBox").value).toLowerCase().trim();
 		var exit_exists = false;
 		var moveMe = this.moveDirection;
+		var room_id = this.room_id;
+		var room_path = '/rooms/' + room_id + '.json'
 		e.preventDefault();
 		command = convertShorthandMovements(commandEntered);
 		newsArray = this.state.news_list.slice(0, 10);
@@ -88,7 +90,27 @@ var Main = React.createClass ({
 				}
 			} else if (command == "wtf") {
 				newsArray.unshift({type: 'misc', msg: timeStamp() + 'Right! What the fuck??'});
-			} else {
+			} 
+
+// PUT NEW COMMANDS HERE!
+
+			else if (command == "dig down") {
+				generateNewRoom({direction: "down"});
+//				this.loadRoom(room_path);
+//				moveMe('down', room_exits);
+			}
+
+
+
+
+
+
+
+
+
+// END NEW COMMANDS HERE!
+
+			else {
 				newsArray.unshift({type: 'misc', msg: timeStamp() + '\"' + command + '\"' + ' is not a valid command.'});
 			}
 		}
