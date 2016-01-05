@@ -17,7 +17,9 @@ function timeStamp() {
 function timeString(ampm) {
 		var d = new Date();
 		var timestamp = "";
-		if (d.getHours() > 12) {
+		if (d.getHours() == 0) {
+			timestamp += "12";
+		} else if (d.getHours() > 12) {
 			timestamp += (d.getHours() - 12).toString();
 		} else { timestamp += d.getHours().toString() }
 		timestamp += ":";
@@ -68,4 +70,12 @@ function convertShorthandMovements(command) {
 	if ((command == "d") || (command == "down")) { return ( 'down' ) };
 	return ( command )
 };
+
+function pausecomp(millis)
+ {
+  var date = new Date();
+  var curDate = null;
+  do { curDate = new Date(); }
+  while(curDate-date < millis);
+}
 

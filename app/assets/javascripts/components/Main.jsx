@@ -37,6 +37,19 @@ var Main = React.createClass ({
     }.bind(this));	
 	},
 
+	loadLastRoom: function() {
+		$.get("/lastroom.json", function(result) {
+    	var exit_array = makeExitArray(result);
+      	this.setState({
+      		room_id: result.id,
+      		room_name: result.name,
+      		room_description: result.description,
+      		room_exits: exit_array,
+      		news_list: newsArray
+      	});
+    }.bind(this));	
+	},
+
 	updateNews: function() {
 		this.setState({
 			news_list: newsArray
@@ -70,11 +83,27 @@ var Main = React.createClass ({
     document.getElementById("commandBox").focus();
 	},
 
+	digDirection: function (direction, room_id, room_exits) {
+		var direction_already_exists = false;
+		room_exits.map(function (exit) {
+			if (exit.name == direction) { direction_already_exists = true; newsArray.unshift({type: 'misc', msg: timeStamp() + 'There is already an exit in that direction!'}); }
+		});
+		if (!direction_already_exists) {
+			generateNewRoom({direction: direction, source_room: room_id});
+		  $.get("/lastroom.json", function(result) {
+		    this.loadRoom("/rooms/" + result.id + ".json");
+		  }.bind(this)); 
+		  newsArray.unshift({type: 'movement', msg: timeStamp() + 'You dig ' + direction + '!'});
+		}
+	},
+
 	commandSubmit: function (e) {
 		var room_exits = this.state.room_exits;
 		var commandEntered = (document.getElementById("commandBox").value).toLowerCase().trim();
 		var exit_exists = false;
 		var moveMe = this.moveDirection;
+		var room_id = this.state.room_id;
+		var room_path = '/rooms/' + room_id + '.json'
 		e.preventDefault();
 		command = convertShorthandMovements(commandEntered);
 		newsArray = this.state.news_list.slice(0, 10);
@@ -88,7 +117,27 @@ var Main = React.createClass ({
 				}
 			} else if (command == "wtf") {
 				newsArray.unshift({type: 'misc', msg: timeStamp() + 'Right! What the fuck??'});
-			} else {
+			} 
+
+// PUT NEW COMMANDS HERE!
+
+			else if (command == "dig north") { this.digDirection("north", room_id, room_exits) }
+			else if (command == "dig northeast") { this.digDirection("northeast", room_id, room_exits) }
+			else if (command == "dig east") { this.digDirection("east", room_id, room_exits) }
+			else if (command == "dig southeast") { this.digDirection("southeast", room_id, room_exits) }
+			else if (command == "dig south") { this.digDirection("south", room_id, room_exits) }
+			else if (command == "dig southwest") { this.digDirection("southwest", room_id, room_exits) }
+			else if (command == "dig west") { this.digDirection("west", room_id, room_exits) }
+			else if (command == "dig northwest") { this.digDirection("northwest", room_id, room_exits) }
+			else if (command == "dig up") { this.digDirection("up", room_id, room_exits) }
+			else if (command == "dig down") { this.digDirection("down", room_id, room_exits) }
+			else if (command == "dig random") { this.digDirection(randomUnusedExit(room_exits), room_id, room_exits) }
+
+
+
+// END NEW COMMANDS HERE!
+
+			else {
 				newsArray.unshift({type: 'misc', msg: timeStamp() + '\"' + command + '\"' + ' is not a valid command.'});
 			}
 		}

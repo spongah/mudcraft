@@ -1,13 +1,19 @@
 Rails.application.routes.draw do
 
   get 'rooms/:id' => 'room#show', as: :room
-  # get 'index' => 'main#index'
+
+  get 'index' => 'main#index'
+  post 'rooms' => 'room#create'
+  patch 'rooms/:id' => 'room#update'
+  get 'lastroom' => 'room#index'
+
+ # delete 'rooms' => 'room#destroy'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'room#show', :id => 1
+  root 'main#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
