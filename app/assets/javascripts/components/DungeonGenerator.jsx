@@ -1,8 +1,9 @@
-var roomNameArray = [ ['Dark', 'Scary', 'Bright', 'Windy'], 
-                      ['Corridor', 'Forest', 'Beach', 'Desert']];
-var roomDescriptionArray =  [ ['This is a very ', 'You are in a '], 
+var roomNameArray = [ ['Dark', 'Scary', 'Bright', 'Windy', 'Yellow', 'Slimey', 'Dank', 'Musty'], 
+                      ['Corridor', 'Forest', 'Beach', 'Desert', 'Castle', ]];
+var roomDescriptionArray =  [ ['This is a large ', 'You are in a ', 'You find your self in a small '], 
                               [' There is a wierd smell, and you feel a strange presence.',
-                               'The air is fresh, but there is still kind of a wierd vibe in here.']
+                               'The air is fresh, but there is still kind of a wierd vibe in here.',
+                               'You think about it, and decide that these room descriptions are probably randomly generated!']
                             ];
 
 function addNewRoom(options) {
@@ -41,10 +42,10 @@ function addNewRoom(options) {
 function generateNewRoom(options) {
 	var direction = options["direction"];
 	var room_origin = options["source_room"];
-  var new_name_array = [roomNameArray[0][Math.floor(Math.random()*roomNameArray.length)], roomNameArray[1][Math.floor(Math.random()*roomNameArray.length)]];
+  var new_name_array = [roomNameArray[0][Math.floor(Math.random()*roomNameArray[0].length)], roomNameArray[1][Math.floor(Math.random()*roomNameArray[1].length)]];
   var new_name_string = new_name_array.join(" ");
-	var new_description = roomDescriptionArray[0][Math.floor(Math.random()*roomDescriptionArray.length)] + new_name_array[1] + '. ' +
-                        roomDescriptionArray[1][Math.floor(Math.random()*roomDescriptionArray.length)];
+	var new_description = roomDescriptionArray[0][Math.floor(Math.random()*roomDescriptionArray[0].length)] + new_name_array[1].toLowerCase() + '. ' +
+                        roomDescriptionArray[1][Math.floor(Math.random()*roomDescriptionArray[1].length)];
   var post_data = { name: "name", description: 'description', u: 1 }
   if (direction == "north") { post_data = { name: new_name_string, description: new_description, s: room_origin } }
   if (direction == "northeast") { post_data = { name: new_name_string, description: new_description, sw: room_origin } }
