@@ -3,7 +3,7 @@ class RoomController < ApplicationController
 	rescue_from NoMethodError, :with => :no_room
 
 	def no_room
-		@room = { name: "not found"}
+		@room = {  }
 	end
 
 	def index

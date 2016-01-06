@@ -86,58 +86,6 @@ var Main = React.createClass ({
     document.getElementById("commandBox").focus();
 	},
 
-	roomAlreadyExists: function (direction, room_id) {
-		var already_exists = false;
-		var this_x = this.state.x;
-		var this_y = this.state.y;
-		var this_z = this.state.z;
-		var new_x = this_x;
-		var new_y = this_y;
-		var new_z = this_z;
-		console.log('this: ' + this_x + ' ' + this_y + ' ' + this_z);
-
-		if ((direction == "northwest") || (direction == "north") || (direction == "northeast")) { new_y += 1 }
-		if ((direction == "northeast") || (direction == "east") || (direction == "southeast")) { new_x += 1 }
-		if ((direction == "southeast") || (direction == "south") || (direction == "southwest")) { new_y -= 1 }
-		if ((direction == "northwest") || (direction == "west") || (direction == "southwest")) { new_x -= 1 }
-		if (direction == "up") { new_z += 1 }
-		if (direction == "down") { new_z -= 1 }
-
-		var coordinate_path = "/rooms/" + new_x + "/" + new_y + "/" + new_z + ".json";
-
-		$.get(coordinate_path)
-			.success(function(result) {
-				var target_room = result.id;
-				var newFormData = {};
-				var this_room_path = "/rooms/" + room_id + ".json"
-				var target_room_path = "/rooms/" + target_room + ".json"
-
-				console.log(coordinate_path);
-				console.log('target room: ' + target_room);
-				console.log('this room_id: ' + room_id);
-
-        $.ajax({					// update this room
-          data: newFormData,
-          url: room_path,
-          type: "PATCH",
-          dataType: "json"
-        });
-
-        newFormData = {};
-
-        $.ajax({					// update target room
-          data: newFormData,
-          url: target_room_path,
-          type: "PATCH",
-          dataType: "json"
-        });
-			})
-			.error(function(jqXHR, textStatus, errorThrown) {
-				console.log(errorThrown);
-				if (errorThrown == "Not Found") { already_exists = false }
-			});
-	},
-
 	digDirection: function (direction, room_id, room_exits) {
 		var direction_already_exists = false;
 		room_exits.map(function (exit) {
@@ -164,12 +112,13 @@ var Main = React.createClass ({
 		$.get(coordinate_path)
 			.success(function(result) {
 				if (result != "") {
+					var target_room_name = result.name;
 					var target_room = result.id;
 					var newFormData = {};
 					var this_room_path = "/rooms/" + room_id + ".json"
 					var target_room_path = "/rooms/" + target_room + ".json"
 
-					console.log('ROOM FOUND TO THE ' + direction);
+					console.log('ROOM FOUND TO THE ' + direction.toUpperCase());
 
 					if (direction == "north") { newFormData = { room: { n: target_room } } }
 					if (direction == "northeast") { newFormData = { room: { ne: target_room } } }
@@ -208,6 +157,7 @@ var Main = React.createClass ({
 	        });
 
 	      	$.get(target_room_path, loadFromResult); 
+	      	newsArray.unshift({type: 'movement', msg: timeStamp() + 'You dig ' + direction + ' into ' + target_room_name + "!"});
 	      } else {
 					coordinates = [new_x, new_y, new_z];
 					generateNewRoom({direction: direction, source_room: room_id, coordinates: coordinates});
