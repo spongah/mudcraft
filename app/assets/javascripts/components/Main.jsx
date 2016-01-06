@@ -160,8 +160,61 @@ var Main = React.createClass ({
 	      	newsArray.unshift({type: 'movement', msg: timeStamp() + 'You dig ' + direction + ' into ' + target_room_name + "!"});
 	      } else {
 					coordinates = [new_x, new_y, new_z];
-					generateNewRoom({direction: direction, source_room: room_id, coordinates: coordinates});
-				  $.get("/lastroom.json", loadFromResult); 
+				  var addTheNewRoom = addNewRoom;
+					var room_origin = room_id
+				  var x = coordinates[0];
+				  var y = coordinates[1];
+				  var z = coordinates[2];
+				  var get_path = '/random_room/' + x + '/' + y + '/' + z + '.json'
+				  $.get(get_path, function(results) {
+				    var new_name_string = results.name;
+				    var new_description = results.description;
+				    var post_data = { name: "name", description: 'description', u: 1 }
+				    if (direction == "north") { post_data = { x: x, y: y, z: z, name: new_name_string, description: new_description, s: room_origin } }
+				    if (direction == "northeast") { post_data = { x: x, y: y, z: z, name: new_name_string, description: new_description, sw: room_origin } }
+				    if (direction == "east") { post_data = { x: x, y: y, z: z, name: new_name_string, description: new_description, w: room_origin } }
+				    if (direction == "southeast") { post_data = { x: x, y: y, z: z, name: new_name_string, description: new_description, nw: room_origin } }
+				    if (direction == "south") { post_data = { x: x, y: y, z: z, name: new_name_string, description: new_description, n: room_origin } }
+				    if (direction == "southwest") { post_data = { x: x, y: y, z: z, name: new_name_string, description: new_description, ne: room_origin } }
+				    if (direction == "west") { post_data = { x: x, y: y, z: z, name: new_name_string, description: new_description, e: room_origin } }
+				    if (direction == "northwest") { post_data = { x: x, y: y, z: z, name: new_name_string, description: new_description, se: room_origin } }
+				    if (direction == "up") { post_data = { x: x, y: y, z: z, name: new_name_string, description: new_description, d: room_origin } }
+				    if (direction == "down") { post_data = { x: x, y: y, z: z, name: new_name_string, description: new_description, u: room_origin } }
+
+					  var room_path = "/rooms/" + room_origin + ".json"
+						formData = { room: post_data }
+					  $.ajax({
+					    data: formData,
+					    url: "/rooms.json",
+					    type: "POST",
+					    dataType: "json",
+					    success: function() {
+					      $.get("/lastroom.json", function(result) {
+					        var newFormData;
+					        if (direction == "north") { newFormData = { room: { n: result.id } } }
+					        if (direction == "northeast") { newFormData = { room: { ne: result.id } } }
+					        if (direction == "east") { newFormData = { room: { e: result.id } } }
+					        if (direction == "southeast") { newFormData = { room: { se: result.id } } }
+					        if (direction == "south") { newFormData = { room: { s: result.id } } }
+					        if (direction == "southwest") { newFormData = { room: { sw: result.id } } }
+					        if (direction == "west") { newFormData = { room: { w: result.id } } }
+					        if (direction == "northwest") { newFormData = { room: { nw: result.id } } }
+					        if (direction == "up") { newFormData = { room: { u: result.id } } }
+					        if (direction == "down") { newFormData = { room: { d: result.id } } }
+					        $.ajax({
+					          data: newFormData,
+					          url: room_path,
+					          type: "PATCH",
+					          dataType: "json",
+					          success: function() {
+					          		$.get("/lastroom.json", loadFromResult); 
+					          }
+					        });
+					      }.bind(this)); 
+					    }
+					  });
+				  }); 
+				  
 				  newsArray.unshift({type: 'movement', msg: timeStamp() + 'You dig ' + direction + '!'});
 				};
 			});
