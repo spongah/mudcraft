@@ -41,7 +41,7 @@ Blueprint.create(map_zone: 1, data_type: "description", data_position: 2, data_v
 Blueprint.create(map_zone: 1, data_type: "description", data_position: 2, data_value: "Haha ok maybe not. It seems to have two parts! Thats nice, this is very furutistic!")
 Blueprint.create(map_zone: 2, data_type: "name", data_position: 1, data_value: "Beautiful")
 Blueprint.create(map_zone: 2, data_type: "name", data_position: 1, data_value: "Wide Open")
-Blueprint.create(map_zone: 2, data_type: "name", data_position: 1, data_value: "Industrial")
+Blueprint.create(map_zone: 2, data_type: "name", data_position: 1, data_value: "Very Tropical")
 Blueprint.create(map_zone: 2, data_type: "name", data_position: 2, data_value: "Forest")
 Blueprint.create(map_zone: 2, data_type: "name", data_position: 2, data_value: "Grass Field")
 Blueprint.create(map_zone: 2, data_type: "name", data_position: 2, data_value: "Pasture")
