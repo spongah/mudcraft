@@ -1,0 +1,1 @@
+json.(@room_info, :name, :description)

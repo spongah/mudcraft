@@ -9,7 +9,18 @@ class Blueprint < ActiveRecord::Base
 		(options[:position] == 0) ? finalNameArray.join(" ") : finalNameArray[options[:position]-1]
 	end
 
+	def self.nameCoordinate(options = {})
+		x = options[:x].to_i
+		y = options[:y].to_i
+		z = options[:z].to_i
+		zone = 1
 
+		if z=0 && (-50..50).include?(x || y) then zone = 2 end
+		if z=0 && x <= 10 && y <= 10 then zone = 1 end
+
+
+		self.nameZone({ zone: zone, position: options[:position], type: options[:type] })
+	end
 end
 
 

@@ -1,6 +1,13 @@
 class BlueprintsController < ApplicationController
   before_action :set_blueprint, only: [:show, :edit, :update, :destroy]
 
+  def random_room
+#    @name = Blueprint.nameZone({ zone: 1, position: 0, type: :name })
+#    @description = Blueprint.nameZone({ zone: 1, position: 0, type: :description })
+    @name = Blueprint.nameCoordinate({ x: params[:x], y: params[:y], z: params[:z], position: 0, type: :name })
+    @description = Blueprint.nameCoordinate({ x: params[:x], y: params[:y], z: params[:z], position: 0, type: :description })
+    @room_info = {name: @name, description: @description}
+  end
 
   def map_zone_index
     @map_zones ||= Blueprint.all.map { |x| x.map_zone }.uniq

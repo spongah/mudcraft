@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   resources :blueprints
   get 'rooms/:id' => 'room#show', as: :room
-  get 'rooms/:x/:y/:z' => 'room#find'
+  get 'rooms/:x/:y/:z' => 'room#find', as: :find_room
   get 'index' => 'main#index'
   post 'rooms' => 'room#create'
   patch 'rooms/:id' => 'room#update'
@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   get 'map_zones' => 'blueprints#map_zone_index'
   get 'map_zones/:map_zone' => 'blueprints#map_zone_show', as: :map_zone
+
+  get 'random_room/:x/:y/:z' => 'blueprints#random_room', as: :random_room
 
  # delete 'rooms' => 'room#destroy'
 
