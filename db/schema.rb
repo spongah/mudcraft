@@ -11,12 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151230033200) do
+ActiveRecord::Schema.define(version: 20160106003630) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "blueprints", force: :cascade do |t|
+    t.integer  "map_zone"
+    t.string   "data_type"
+    t.integer  "data_position"
+    t.string   "data_value"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
   create_table "rooms", force: :cascade do |t|
+    t.integer  "x",           default: 0,  null: false
+    t.integer  "y",           default: 0,  null: false
+    t.integer  "z",           default: 0,  null: false
     t.string   "name",        default: "", null: false
     t.text     "description", default: "", null: false
     t.integer  "n",           default: 0,  null: false

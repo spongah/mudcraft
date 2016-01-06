@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :blueprints
   get 'rooms/:id' => 'room#show', as: :room
 
   get 'index' => 'main#index'

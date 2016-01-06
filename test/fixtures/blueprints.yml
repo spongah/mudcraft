@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  map_zone: 1
+  data_type: MyString
+  data_position: 1
+  data_value: MyString
+
+two:
+  map_zone: 1
+  data_type: MyString
+  data_position: 1
+  data_value: MyString

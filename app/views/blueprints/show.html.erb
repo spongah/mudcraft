@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Map zone:</strong>
+  <%= @blueprint.map_zone %>
+</p>
+
+<p>
+  <strong>Data type:</strong>
+  <%= @blueprint.data_type %>
+</p>
+
+<p>
+  <strong>Data position:</strong>
+  <%= @blueprint.data_position %>
+</p>
+
+<p>
+  <strong>Data value:</strong>
+  <%= @blueprint.data_value %>
+</p>
+
+<%= link_to 'Edit', edit_blueprint_path(@blueprint) %> |
+<%= link_to 'Back', blueprints_path %>

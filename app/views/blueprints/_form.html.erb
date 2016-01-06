@@ -1,0 +1,33 @@
+<%= form_for(@blueprint) do |f| %>
+  <% if @blueprint.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@blueprint.errors.count, "error") %> prohibited this blueprint from being saved:</h2>
+
+      <ul>
+      <% @blueprint.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :map_zone %><br>
+    <%= f.number_field :map_zone %>
+  </div>
+  <div class="field">
+    <%= f.label :data_type %><br>
+    <%= f.text_field :data_type %>
+  </div>
+  <div class="field">
+    <%= f.label :data_position %><br>
+    <%= f.number_field :data_position %>
+  </div>
+  <div class="field">
+    <%= f.label :data_value %><br>
+    <%= f.text_field :data_value %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

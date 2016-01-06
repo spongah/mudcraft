@@ -1,6 +1,9 @@
 class CreateRooms < ActiveRecord::Migration
   def change
     create_table :rooms do |t|
+      t.integer :x, :null => false, :default => 0
+      t.integer :y, :null => false, :default => 0
+      t.integer :z, :null => false, :default => 0
       t.string :name, :null => false, :default => ""
       t.text :description, :null => false, :default => ""
       t.integer :n, :null => false, :default => 0
