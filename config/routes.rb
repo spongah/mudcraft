@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   resources :blueprints
   get 'rooms/:id' => 'room#show', as: :room
-
+  get 'rooms/:x/:y/:z' => 'room#find'
   get 'index' => 'main#index'
   post 'rooms' => 'room#create'
   patch 'rooms/:id' => 'room#update'

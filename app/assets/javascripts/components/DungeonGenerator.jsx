@@ -42,21 +42,25 @@ function addNewRoom(options) {
 function generateNewRoom(options) {
 	var direction = options["direction"];
 	var room_origin = options["source_room"];
+  var coodinates = options["coordinates"];
+  var x = coordinates[0];
+  var y = coordinates[1];
+  var z = coordinates[2];
   var new_name_array = [roomNameArray[0][Math.floor(Math.random()*roomNameArray[0].length)], roomNameArray[1][Math.floor(Math.random()*roomNameArray[1].length)]];
   var new_name_string = new_name_array.join(" ");
 	var new_description = roomDescriptionArray[0][Math.floor(Math.random()*roomDescriptionArray[0].length)] + new_name_array[1].toLowerCase() + '. ' +
                         roomDescriptionArray[1][Math.floor(Math.random()*roomDescriptionArray[1].length)];
   var post_data = { name: "name", description: 'description', u: 1 }
-  if (direction == "north") { post_data = { name: new_name_string, description: new_description, s: room_origin } }
-  if (direction == "northeast") { post_data = { name: new_name_string, description: new_description, sw: room_origin } }
-  if (direction == "east") { post_data = { name: new_name_string, description: new_description, w: room_origin } }
-  if (direction == "southeast") { post_data = { name: new_name_string, description: new_description, nw: room_origin } }
-  if (direction == "south") { post_data = { name: new_name_string, description: new_description, n: room_origin } }
-  if (direction == "southwest") { post_data = { name: new_name_string, description: new_description, ne: room_origin } }
-  if (direction == "west") { post_data = { name: new_name_string, description: new_description, e: room_origin } }
-  if (direction == "northwest") { post_data = { name: new_name_string, description: new_description, se: room_origin } }
-  if (direction == "up") { post_data = { name: new_name_string, description: new_description, d: room_origin } }
-  if (direction == "down") { post_data = { name: new_name_string, description: new_description, u: room_origin } }
+  if (direction == "north") { post_data = { x: x, y: y, z: z, name: new_name_string, description: new_description, s: room_origin } }
+  if (direction == "northeast") { post_data = { x: x, y: y, z: z, name: new_name_string, description: new_description, sw: room_origin } }
+  if (direction == "east") { post_data = { x: x, y: y, z: z, name: new_name_string, description: new_description, w: room_origin } }
+  if (direction == "southeast") { post_data = { x: x, y: y, z: z, name: new_name_string, description: new_description, nw: room_origin } }
+  if (direction == "south") { post_data = { x: x, y: y, z: z, name: new_name_string, description: new_description, n: room_origin } }
+  if (direction == "southwest") { post_data = { x: x, y: y, z: z, name: new_name_string, description: new_description, ne: room_origin } }
+  if (direction == "west") { post_data = { x: x, y: y, z: z, name: new_name_string, description: new_description, e: room_origin } }
+  if (direction == "northwest") { post_data = { x: x, y: y, z: z, name: new_name_string, description: new_description, se: room_origin } }
+  if (direction == "up") { post_data = { x: x, y: y, z: z, name: new_name_string, description: new_description, d: room_origin } }
+  if (direction == "down") { post_data = { x: x, y: y, z: z, name: new_name_string, description: new_description, u: room_origin } }
   addNewRoom({post_data: post_data, room_origin: room_origin, direction: direction});
 };
 

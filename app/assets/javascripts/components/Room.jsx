@@ -2,8 +2,9 @@ var Room = React.createClass ({
 	render: function () {
 		return (
 				<div>
-					<h2 className="rtitle">{this.props.room_name} - <TickTock /> - Room: {this.props.room_id}</h2>
-					<div className="rdescription">{this.props.room_description}</div>
+					<h2 className="rtitle">{this.props.room_name}</h2>
+					<div className="rdescription"><TickTock /> - Room: {this.props.room_id} - x: {this.props.x} y: {this.props.y} z: {this.props.z}<br />
+					{this.props.room_description}</div>
 					<h5 className="exits">
 						{ (this.props.exits.length == 0) ? <span>This room has no exits!</span> : 
 							<span><ExitGroup exits={this.props.exits} onClick={this.props.onClick}></ExitGroup></span>}
