@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Map Zones</h1>
+
+<table class="table table-condensed table-hover table-striped">
+  <thead>
+    <tr>
+      <th>Map zone</th>
+      <th>Sample Name</th>
+      <th>Sample Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @map_zones.each do |map_zone| %>
+      <tr>
+        <td><%= link_to(map_zone, map_zone_path(map_zone)) %></td>
+        <td><%= link_to(@names[map_zone-1], map_zone_path(map_zone)) %></td>
+        <td><%= link_to(@descriptions[map_zone-1], map_zone_path(map_zone)) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Back To All Blueprints', blueprints_path %>
+

@@ -1,10 +1,29 @@
 class BlueprintsController < ApplicationController
   before_action :set_blueprint, only: [:show, :edit, :update, :destroy]
 
+
+  def map_zone_index
+    @map_zones ||= Blueprint.all.map { |x| x.map_zone }.uniq
+    @names = []
+    @descriptions = []
+    @map_zones.map { |x| @names.push(Blueprint.nameZone({ zone: x, position: 0, type: :name})) }
+    @map_zones.map { |x| @descriptions.push(Blueprint.nameZone({ zone: x, position: 0, type: :description})) }
+  end
+
+  def map_zone_show
+    @names = []
+    @descriptions = []
+    @zone = params[:map_zone]
+    @map_zone = Blueprint.where(map_zone: params[:map_zone])
+    @names = @map_zone.order(:data_position, :data_value).where(data_type: :name)
+    @descriptions = @map_zone.order(:data_position, :data_value).where(data_type: :description)
+  end
+
   # GET /blueprints
   # GET /blueprints.json
   def index
     @blueprints ||= Blueprint.order(:map_zone, :data_type, :data_position)
+    @map_zones ||= Blueprint.all.map { |x| x.map_zone }.uniq
 #    @name = Blueprint.nameZone({ zone: 1, position: 0, type: :name})
 #    @name = @blueprints.nameZone({ zone: 1, position: 0, type: :name })
 #    @description = @blueprints.nameZone({ zone: 1, position: 0, type: :description})

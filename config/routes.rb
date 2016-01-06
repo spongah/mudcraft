@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   patch 'rooms/:id' => 'room#update'
   get 'lastroom' => 'room#index'
 
+  get 'map_zones' => 'blueprints#map_zone_index'
+  get 'map_zones/:map_zone' => 'blueprints#map_zone_show', as: :map_zone
+
  # delete 'rooms' => 'room#destroy'
 
   # The priority is based upon order of creation: first created -> highest priority.
