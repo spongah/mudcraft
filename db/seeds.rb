@@ -59,7 +59,7 @@ Room.create(x: 1, y: 0, z: -1, name: "Dungeon Entrance", description: "This is t
 	u: 4)
 
 #14
-Room.create(x: -1, y: -2, z: 0, name: "Desert Entrance", description: "You are at the desert entrance. The desert seems to have receeded since this became the desert entrance because there is still probably 9 more rooms before entering the desert.. Wierd!", 
+Room.create(x: -1, y: -2, z: 0, name: "Desert Entrance", description: "You are at the desert entrance. Sand as far as the eye can see, you notice a tumbleweed making its way across the barren land.", 
 	ne: 2)
 
 

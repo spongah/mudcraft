@@ -57,7 +57,7 @@ class Blueprint < ActiveRecord::Base
 
 			#desert oasis
 
-			#burried treasure
+			#buried treasure
 
 			#desert entrance
 			if (x == -2) && (y == -3) then zone = 4 end
